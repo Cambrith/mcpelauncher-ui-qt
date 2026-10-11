@@ -1,0 +1,55 @@
+#!/usr/bin/python3
+"""Run the installed Flatpak with a version-checked local UI resource copy."""
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+app_id = 'io.mrarm.mcpelauncher'
+base = Path.home()/'.var/app'/app_id/'data/minecraft-ui-localization'
+patched = base/'bin/mcpelauncher-ui-qt'
+command = 'mcpelauncher-ui-qt'
+try:
+    manifest = json.loads((base/'manifest.json').read_text())
+    location = subprocess.check_output(['/usr/bin/flatpak', 'info', '--show-location', app_id], text=True).strip()
+    original = Path(location)/'files/bin/mcpelauncher-ui-qt'
+    if (hashlib.sha256(original.read_bytes()).hexdigest() == manifest['source_sha256']
+        and hashlib.sha256(patched.read_bytes()).hexdigest() == manifest['patched_sha256']
+        and all(hashlib.sha256((base.parent/relative).read_bytes()).hexdigest() == expected
+                for relative, expected in manifest.get('external_files', {}).items())):
+        command = str(patched)
+    else:
+        subprocess.run(['/usr/bin/notify-send', 'Minecraft',
+            'A versão do launcher mudou. A interface original será usada até revisar a personalização dos textos.'], check=False)
+except (OSError, ValueError, KeyError, subprocess.SubprocessError):
+    subprocess.run(['/usr/bin/notify-send', 'Minecraft',
+        'A personalização local dos textos está indisponível. Abrindo o launcher original.'], check=False)
+
+# Independently validate the native game menu copy; keep launcher localization separate.
+game_options = []
+game_base = base.parent/'minecraft-game-menu-localization'
+try:
+    game_manifest = json.loads((game_base/'manifest.json').read_text())
+    game_original = Path(location)/'files/bin/mcpelauncher-client'
+    game_patched = game_base/'bin/mcpelauncher-client'
+    if (hashlib.sha256(game_original.read_bytes()).hexdigest() == game_manifest['source_sha256']
+        and hashlib.sha256(game_patched.read_bytes()).hexdigest() == game_manifest['patched_sha256']
+        and all(hashlib.sha256((game_base.parent/relative).read_bytes()).hexdigest() == expected
+                for relative, expected in game_manifest.get('external_files', {}).items())):
+        game_options = ['--env=PATH=/var/data/minecraft-game-menu-localization/bin:/app/bin:/usr/bin']
+    else:
+        subprocess.run(['/usr/bin/notify-send', 'Minecraft',
+            'O cliente do jogo mudou. Os menus originais serão usados até revisar a tradução local.'], check=False)
+except (OSError, ValueError, KeyError, NameError):
+    subprocess.run(['/usr/bin/notify-send', 'Minecraft',
+        'A tradução local dos menus do jogo está indisponível. Usando o cliente original.'], check=False)
+
+# Do not let the terminal's temporary locale overrides mask the existing Flatpak LANG setting.
+environment = os.environ.copy()
+environment.pop('LC_ALL', None)
+environment.pop('LC_CTYPE', None)
+args = ['/usr/bin/flatpak', 'run', '--branch=stable', '--arch=x86_64',
+        '--command='+command, *game_options, '--file-forwarding', app_id, '@@u', *sys.argv[1:], '@@']
+os.execve('/usr/bin/flatpak', args, environment)

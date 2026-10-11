@@ -5,8 +5,8 @@ import QtQuick.Window
 import Qt.labs.platform
 
 Window {
-    property string tosText: "By using this application you agree to the Google Play Terms of Service."
-    property string marketingText: "I agree to receive Marketing E-Mails"
+    property string tosText: qsTr("By using this application you agree to the Google Play Terms of Service.")
+    property string marketingText: qsTr("I agree to receive Marketing E-Mails")
 
     property bool tosApproved: false
     property alias marketingApproved: marketingCheck.checked
@@ -16,7 +16,7 @@ Window {
     width: Math.min(layout.implicitWidth + layout.anchors.leftMargin + layout.anchors.rightMargin, 420)
     height: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
     flags: Qt.Dialog
-    title: "Google Play ToS approval"
+    title: qsTr("Google Play ToS approval")
 
     onClosing: {
         done(tosApproved, marketingApproved)
@@ -49,7 +49,7 @@ Window {
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
 
             Button {
-                text: "Agree"
+                text: qsTr("Agree")
                 onClicked: {
                     tosApproved = true
                     close()
@@ -57,7 +57,7 @@ Window {
             }
 
             Button {
-                text: "Disagree"
+                text: qsTr("Disagree")
                 onClicked: {
                     tosApproved = false
                     close()

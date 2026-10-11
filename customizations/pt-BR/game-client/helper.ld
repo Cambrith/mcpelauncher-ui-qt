@@ -1,0 +1,19 @@
+SECTIONS { . = 0x59a000; .text : { *(.text*) } .rodata : { *(.rodata*) } . = ALIGN(4096); .bss : { *(.bss*) *(COMMON) } /DISCARD/ : { *(.eh_frame*) *(.comment*) *(.note*) } }
+original_24f320 = 0x24f320;
+original_2eef10 = 0x2eef10;
+original_2d63d0 = 0x2d63d0;
+original_2ef580 = 0x2ef580;
+original_2410b0 = 0x2410b0;
+original_2d1d80 = 0x2d1d80;
+original_2d21b0 = 0x2d21b0;
+original_2d3560 = 0x2d3560;
+original_2d49e0 = 0x2d49e0;
+original_2e1380 = 0x2e1380;
+original_230e80 = 0x230e80;
+original_230910 = 0x230910;
+original_252f60 = 0x252f60;
+original_253aa0 = 0x253aa0;
+original_2e17b0 = 0x2e17b0;
+original_2dbbf0 = 0x2dbbf0;
+original_2dd160 = 0x2dd160;
+original_2dba70 = 0x2dba70;

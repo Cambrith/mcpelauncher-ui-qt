@@ -1,0 +1,405 @@
+{
+  "source_sha256": "448af80b3f785c50336e93967b58dbf55c05c6958518aa20dbf09724c5a8dc5a",
+  "patched_sha256": "e23d16c011362fb797845876018e570b82b4ebdc3ae46c54c2684e3733c2dcf3",
+  "source_client_commit": "78904982c13d7bcec7af4b572b18cac83d930d31",
+  "translations": 74,
+  "ui_call_sites": [
+    {
+      "address": "0x360c1c",
+      "original": "0x24f320",
+      "wrapper": "0x59a000"
+    },
+    {
+      "address": "0x360c51",
+      "original": "0x2eef10",
+      "wrapper": "0x59a0dc"
+    },
+    {
+      "address": "0x360c6e",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360cdf",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360d5b",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360d80",
+      "original": "0x2eef10",
+      "wrapper": "0x59a0dc"
+    },
+    {
+      "address": "0x360da5",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360dcd",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360df7",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360e41",
+      "original": "0x2eef10",
+      "wrapper": "0x59a0dc"
+    },
+    {
+      "address": "0x360e5a",
+      "original": "0x2eef10",
+      "wrapper": "0x59a0dc"
+    },
+    {
+      "address": "0x360e84",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360eae",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360ed8",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360efd",
+      "original": "0x2eef10",
+      "wrapper": "0x59a0dc"
+    },
+    {
+      "address": "0x360f27",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360f51",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360f7b",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x360fa0",
+      "original": "0x2eef10",
+      "wrapper": "0x59a0dc"
+    },
+    {
+      "address": "0x36120f",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x36132f",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x361368",
+      "original": "0x2eef10",
+      "wrapper": "0x59a0dc"
+    },
+    {
+      "address": "0x36138d",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x3613dc",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x361435",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x361523",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    },
+    {
+      "address": "0x3615ec",
+      "original": "0x2eef10",
+      "wrapper": "0x59a0dc"
+    },
+    {
+      "address": "0x36160a",
+      "original": "0x2ef580",
+      "wrapper": "0x59a294"
+    },
+    {
+      "address": "0x36168e",
+      "original": "0x252f60",
+      "wrapper": "0x59aa50"
+    },
+    {
+      "address": "0x3616a1",
+      "original": "0x253aa0",
+      "wrapper": "0x59ab2c"
+    },
+    {
+      "address": "0x3616d0",
+      "original": "0x2d21b0",
+      "wrapper": "0x59a528"
+    },
+    {
+      "address": "0x3616e4",
+      "original": "0x2d49e0",
+      "wrapper": "0x59a6e0"
+    },
+    {
+      "address": "0x36170d",
+      "original": "0x2d3560",
+      "wrapper": "0x59a604"
+    },
+    {
+      "address": "0x361769",
+      "original": "0x2d3560",
+      "wrapper": "0x59a604"
+    },
+    {
+      "address": "0x3617a6",
+      "original": "0x2410b0",
+      "wrapper": "0x59a370"
+    },
+    {
+      "address": "0x3617ca",
+      "original": "0x2e1380",
+      "wrapper": "0x59a7bc"
+    },
+    {
+      "address": "0x3617ea",
+      "original": "0x2d3560",
+      "wrapper": "0x59a604"
+    },
+    {
+      "address": "0x361835",
+      "original": "0x2410b0",
+      "wrapper": "0x59a370"
+    },
+    {
+      "address": "0x361859",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x36186e",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x361883",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x3618b7",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x3618e6",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x361905",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x36191d",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x361935",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x3619ce",
+      "original": "0x230e80",
+      "wrapper": "0x59a898"
+    },
+    {
+      "address": "0x361a8d",
+      "original": "0x2410b0",
+      "wrapper": "0x59a370"
+    },
+    {
+      "address": "0x361af0",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x361bdd",
+      "original": "0x230e80",
+      "wrapper": "0x59a898"
+    },
+    {
+      "address": "0x361cd0",
+      "original": "0x2410b0",
+      "wrapper": "0x59a370"
+    },
+    {
+      "address": "0x361e49",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x361f2d",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x36200a",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x3620e7",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x36292f",
+      "original": "0x230e80",
+      "wrapper": "0x59a898"
+    },
+    {
+      "address": "0x3629c7",
+      "original": "0x230910",
+      "wrapper": "0x59a974"
+    },
+    {
+      "address": "0x362c4e",
+      "original": "0x230e80",
+      "wrapper": "0x59a898"
+    },
+    {
+      "address": "0x362cef",
+      "original": "0x230910",
+      "wrapper": "0x59a974"
+    },
+    {
+      "address": "0x362e41",
+      "original": "0x230e80",
+      "wrapper": "0x59a898"
+    },
+    {
+      "address": "0x362ec7",
+      "original": "0x230910",
+      "wrapper": "0x59a974"
+    },
+    {
+      "address": "0x363142",
+      "original": "0x230e80",
+      "wrapper": "0x59a898"
+    },
+    {
+      "address": "0x3631d7",
+      "original": "0x230910",
+      "wrapper": "0x59a974"
+    },
+    {
+      "address": "0x363320",
+      "original": "0x252f60",
+      "wrapper": "0x59aa50"
+    },
+    {
+      "address": "0x363342",
+      "original": "0x253aa0",
+      "wrapper": "0x59ab2c"
+    },
+    {
+      "address": "0x3633bc",
+      "original": "0x2410b0",
+      "wrapper": "0x59af78"
+    },
+    {
+      "address": "0x363410",
+      "original": "0x2e17b0",
+      "wrapper": "0x59ac08"
+    },
+    {
+      "address": "0x36345e",
+      "original": "0x2d3560",
+      "wrapper": "0x59b054"
+    },
+    {
+      "address": "0x36349d",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x3634bc",
+      "original": "0x2dba70",
+      "wrapper": "0x59ae9c"
+    },
+    {
+      "address": "0x36351c",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x363548",
+      "original": "0x2d1d80",
+      "wrapper": "0x59a44c"
+    },
+    {
+      "address": "0x363564",
+      "original": "0x2dbbf0",
+      "wrapper": "0x59ace4"
+    },
+    {
+      "address": "0x363ad8",
+      "original": "0x2eef10",
+      "wrapper": "0x59a0dc"
+    },
+    {
+      "address": "0x363b27",
+      "original": "0x2d63d0",
+      "wrapper": "0x59a1b8"
+    }
+  ],
+  "protected_ranges": [
+    [
+      "0x360530",
+      "0x36390f"
+    ],
+    [
+      "0x363a70",
+      "0x363b5c"
+    ]
+  ],
+  "external_files": {
+    "mcpelauncher/mods/mcpelauncher-updates/1.26.45.1/x86_64/libmcpelauncher-updates.so": "ade65d63f2b3cc3e23ca20fce0b959fbf2ec18a476187adc5e53f957b9581190"
+  },
+  "known_module_label_fix": "First VV Patching button: Apply rt0 now; original label displayed freed SSO bytes. Rendering label only, callback unchanged.",
+  "source_files": {
+    "source/build.py": "591d90491b13cdd13ec1a1caa171116135afb9787d34e6dde4c01280955fee87",
+    "source/translate.c": "976796cba42e2900ee9bfe4adcbc8d986783cb1078fea70ab65a6ddb4353cb25",
+    "source/wrappers.S": "381061e734973b21ada3216996228ce55b233c153ed46f831ffb0ac86af5bcbc",
+    "source/helper.ld": "5240111b6778f34494599e9baebc12b75dadf7faefe175a71cb322bb0db39a63",
+    "source/translations.json": "ecc742171dab602ac74cb0cc7cc59cad66bd049927e54f101daa80d2682444d5",
+    "source/check.c": "d50ba83c4a856c68c289b9ddf1357380aa40d1d99cd5c2349e3a2acbc9f9e74b"
+  }
+}

@@ -23,13 +23,13 @@ Item {
 
     FileDialog {
         id: apkPicker
-        title: "Please pick the Minecraft .apk file"
-        nameFilters: ["Android package files (*.apk *.zip)", "All files (*)"]
+        title: qsTr("Please pick the Minecraft .apk file")
+        nameFilters: [qsTr("Android package files (*.apk *.zip)"), qsTr("All files (*)")]
         fileMode: FileDialog.OpenFiles
 
         onAccepted: {
             if (!apkExtractionTask.setSourceUrls(apkPicker.currentFiles)) {
-                apkExtractionMessageDialog.text = "Invalid file URL"
+                apkExtractionMessageDialog.text = qsTr("Invalid file URL")
                 apkExtractionMessageDialog.open()
                 return
             }
@@ -56,7 +56,7 @@ Item {
 
         onError: function (err) {
             extractingApk = false
-            apkExtractionMessageDialog.text = qsTr("The specified file is not compatible with the launcher<br/>Login to Google Play with an account owning Minecraft ( Playstore ) and let the launcher download compatible versions, including previous versions of Minecraft<br/>Details:<br/>%1").arg(err)
+            apkExtractionMessageDialog.text = qsTr("The specified file is not compatible with the launcher<br/>Login to Google Play with an account owning Minecraft ( Playstore ) and let the launcher download compatible versions, including previous versions of Minecraft<br/>Details:<br/>%1").arg(qsTranslate("BackendMessages", String(err)))
             apkExtractionMessageDialog.open()
             root.error()
         }
@@ -73,7 +73,7 @@ Item {
 
     MessageDialog {
         id: apkExtractionMessageDialog
-        title: "Apk extraction"
+        title: qsTr("Apk extraction")
     }
 
     function pickFile() {

@@ -105,7 +105,7 @@ ColumnLayout {
                     ColumnLayout {
                         Layout.fillWidth: true
                         MText {
-                            text: "Architecture"
+                            text: qsTr("Architecture")
                             font.bold: true
                         }
                         MComboBox {

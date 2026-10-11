@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Minecraft: Bedrock Edition
+GenericName=Jogo de construção e sobrevivência
+Comment=Explore, construa e sobreviva em um mundo de blocos.
+Exec=/home/cambrith/.local/bin/minecraft-launcher-localized --profile Default
+Icon=io.mrarm.mcpelauncher
+Terminal=false
+StartupNotify=true
+StartupWMClass=mcpelauncher-client
+Categories=Game;
+Keywords=Minecraft;Bedrock;Sobrevivência;Criativo;

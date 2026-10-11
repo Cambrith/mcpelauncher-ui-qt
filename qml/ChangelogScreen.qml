@@ -23,7 +23,7 @@ BaseScreen {
         TextEdit {
             padding: 15
             textFormat: TextEdit.RichText
-            text: "<b>Welcome to the new Minecraft Linux Launcher Update</b><br/><br/>" + LAUNCHER_CHANGE_LOG
+            text: "<b>" + qsTr("Welcome to the new Minecraft Linux Launcher Update") + "</b><br/><br/>" + LAUNCHER_CHANGE_LOG
             color: "#fff"
             readOnly: true
             font.pointSize: 10

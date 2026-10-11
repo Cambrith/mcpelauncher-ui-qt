@@ -18,6 +18,7 @@
         <file>qml/UnlockScreen.qml</file>
         <file>qml/HomeScreen.qml</file>
         <file>qml/NewsScreen.qml</file>
+        <file>qml/NewsTranslation.js</file>
         <file>qml/ModsScreen.qml</file>
         <file>qml/GameLogScreen.qml</file>
         <file>qml/SettingsScreen.qml</file>
@@ -42,7 +43,6 @@
         <file>qml/Components/MTextField.qml</file>
         <file>qml/Components/NotifyBanner.qml</file>
         <file>qml/Components/PlayButton.qml</file>
-        <file>qml/Components/TransparentButton.qml</file>
         <file>qml/Components/ModsGrid.qml</file>
         <file>Resources/mcpelauncher-logo.svg</file>
         <file>Resources/mcpelauncher-icon.svg</file>

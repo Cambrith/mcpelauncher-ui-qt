@@ -2,8 +2,10 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "Components"
+import "NewsTranslation.js" as NewsTranslation
 
 ColumnLayout {
+    id: newsScreen
     Layout.fillWidth: true
     Layout.fillHeight: true
     spacing: 0
@@ -182,13 +184,21 @@ ColumnLayout {
             const t = e.preferred_tile || e.default_tile
             if (t) {
                 newsModel.append({
-                                     "name": t.title || t.text,
-                                     "description": t.sub_header,
+                                     "name": qsTranslate("NewsLocalization", "Translating..."),
+                                     "description": t.sub_header ? qsTranslate("NewsLocalization", "Translating...") : "",
                                      "image": `https://www.minecraft.net${t.image.imageURL}`,
                                      "url": `https://minecraft.net${e.article_url}`
                                  })
+                translateField(newsModel.count - 1, "name", t.title || t.text)
+                translateField(newsModel.count - 1, "description", t.sub_header)
             }
         }
+    }
+
+    function translateField(row, field, source) {
+        NewsTranslation.translate(source, window, function(translated) {
+            if (row < newsModel.count) newsModel.setProperty(row, field, translated)
+        })
     }
 
     Component.onCompleted: loadNews()

@@ -94,7 +94,7 @@ ApplicationWindow {
                         Layout.fillWidth: true
                         readOnly: true
                         color: "#888"
-                        text: currentGamepad && currentGamepad.hasMapping ? "True" : "False"
+                        text: currentGamepad && currentGamepad.hasMapping ? qsTr("True") : qsTr("False")
                     }
                 }
             }
@@ -132,7 +132,7 @@ ApplicationWindow {
                             anchors.margins: 10
                             spacing: 2
                             MText {
-                                text: field.name.toUpperCase()
+                                text: qsTranslate("GamepadLabels", field.name).toUpperCase()
                                 Layout.fillWidth: true
                             }
                             MText {

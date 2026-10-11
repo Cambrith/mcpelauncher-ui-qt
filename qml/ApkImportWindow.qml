@@ -13,7 +13,7 @@ Window {
     width: 320
     height: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
     flags: Qt.Dialog
-    title: "Minecraft .apk import"
+    title: qsTr("Minecraft .apk import")
     visible: apkImportHelper.extractingApk
     color: "#333"
 

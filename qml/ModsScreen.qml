@@ -41,7 +41,7 @@ AnimatedStackLayout {
                 }
             }
         }
-        
+
         ModManager {
             id: modManager
         }
@@ -197,7 +197,7 @@ AnimatedStackLayout {
                 MText {
                     Layout.fillWidth: true
                     wrapMode: TextEdit.Wrap
-                    text: stack.elem && stack.elem.description || ""
+                    text: qsTranslate("RemoteMods", stack.elem && stack.elem.description || "")
                 }
 
                 MText {
@@ -212,7 +212,7 @@ AnimatedStackLayout {
                     focus: true
                     Layout.fillWidth: true
                     wrapMode: TextEdit.Wrap
-                    text: "<style type=\"text/css\">a { color: lightblue; }</style><a href=\"" + (stack.elem && stack.elem.url && stack.elem.url.indexOf("\"") === -1 && stack.elem.url || "") + "\">Homepage</a>"
+                    text: "<style type=\"text/css\">a { color: lightblue; }</style><a href=\"" + (stack.elem && stack.elem.url && stack.elem.url.indexOf("\"") === -1 && stack.elem.url || "") + "\">" + qsTr("Homepage") + "</a>"
                     color: "white"
                     textFormat: Text.RichText
                     readOnly: true
@@ -365,7 +365,7 @@ AnimatedStackLayout {
             onError: function(err) {
                 console.log("Download failed: " + err)
                 modDownloadExtractError.title = qsTr("Download failed")
-                modDownloadExtractError.text = err
+                modDownloadExtractError.text = qsTranslate("BackendMessages", String(err))
                 modDownloadExtractError.open()
                 progress.value = 0
                 installedModsGrid.reload()
@@ -386,7 +386,7 @@ AnimatedStackLayout {
             onError: function (err) {
                 console.log("Zip extraction failed: " + err)
                 modDownloadExtractError.title = qsTr("Zip extraction failed")
-                modDownloadExtractError.text = err
+                modDownloadExtractError.text = qsTranslate("BackendMessages", String(err))
                 modDownloadExtractError.open()
                 progress.value = 0
                 QmlUrlUtils.deleteFolder(zipTask.targetDir)

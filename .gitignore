@@ -71,3 +71,34 @@ CMakeLists.txt.user
 # --------
 *.dll
 *.exe
+
+# Personalizações Cambrith PT-BR
+# Gitignore adicional da personalização. O fork mantém os arquivos do projeto original.
+*.qm
+*.o
+*.elf
+*.bin
+*.apk
+*.apks
+*.mcworld
+*.mcpack
+__pycache__/
+.cache/
+.cache-*/
+.build-*/
+/dist/
+/build/
+*.sqlite
+*.sqlite3
+*.db
+*.log
+*.bak
+*.tmp
+*.orig
+*.rej
+*.key
+*.pem
+*.p12
+*.pfx
+.env
+.env.*

@@ -17,8 +17,8 @@ ColumnLayout {
 
     FileDialog {
         id: filePicker
-        title: "Please pick the Minecraft file"
-        nameFilters: ["Minecraft (*.mcaddon *.mcpack *.mcstructure *.mctemplate *.mcworld)", "All files (*)"]
+        title: qsTr("Please pick the Minecraft file")
+        nameFilters: ["Minecraft (*.mcaddon *.mcpack *.mcstructure *.mctemplate *.mcworld)", qsTr("All files (*)")]
         fileMode: FileDialog.OpenFiles
 
         onAccepted: {
@@ -56,23 +56,23 @@ ColumnLayout {
     }
 
     MText {
-        text: qsTr("Game directories for current selected profile: ") + profileManagerInstance.activeProfile.name
+        text: qsTr("Game directories for current selected profile: ") + (profileManagerInstance.activeProfile.nameLocked && profileManagerInstance.activeProfile.name === "Default" ? qsTr("Default") : profileManagerInstance.activeProfile.name)
         Layout.bottomMargin: 5
     }
 
     Repeater {
         property string gameDataDir: window.getCurrentGameDataDir()
         model: [{
-                "label": "Data Root",
+                "label": qsTr("Data Root"),
                 "path": gameDataDir
             }, {
-                "label": "Worlds",
+                "label": qsTr("Worlds"),
                 "path": gameDataDir + "/games/com.mojang/minecraftWorlds"
             }, {
-                "label": "Resource Packs",
+                "label": qsTr("Resource Packs"),
                 "path": gameDataDir + "/games/com.mojang/resource_packs"
             }, {
-                "label": "Behaviour Packs",
+                "label": qsTr("Behaviour Packs"),
                 "path": gameDataDir + "/games/com.mojang/behavior_packs"
             }]
         delegate: pathField
@@ -91,10 +91,10 @@ ColumnLayout {
     Repeater {
         property string gameDataDir: window.getCurrentGameDataDir()
         model: [{
-                "label": "Game Data",
+                "label": qsTr("Game Data"),
                 "path": gameDataDir
             }, {
-                "label": "Versions",
+                "label": qsTr("Versions"),
                 "path": gameDataDir + "/versions"
             }]
         delegate: pathField

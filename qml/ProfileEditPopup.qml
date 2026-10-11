@@ -117,7 +117,7 @@ Popup {
                         MTextField {
                             id: profileName
                             Layout.fillWidth: true
-                            placeholderText: "unamed"
+                            placeholderText: qsTr("Unnamed")
                         }
                     }
 
@@ -293,13 +293,13 @@ Popup {
                                 ListModel {
                                     id: texturePatchModel
                                     ListElement {
-                                        name: "Auto"
+                                        name: qsTr("Auto")
                                     }
                                     ListElement {
-                                        name: "Enable"
+                                        name: qsTr("Enable")
                                     }
                                     ListElement {
-                                        name: "Disable"
+                                        name: qsTr("Disable")
                                     }
                                 }
                                 model: texturePatchModel
@@ -310,7 +310,7 @@ Popup {
                             Layout.fillWidth: true
                             visible: SHOW_ANGLEBACKEND
                             MText {
-                                text: "ANGLE backend"
+                                text: qsTr("ANGLE backend")
                                 font.bold: true
                             }
                             MComboBox {
@@ -321,7 +321,7 @@ Popup {
                                 ListModel {
                                     id: graphicsAPIModel
                                     ListElement {
-                                        name: "Default"
+                                        name: qsTr("Default")
                                     }
                                     ListElement {
                                         name: "Metal"
@@ -412,7 +412,7 @@ Popup {
                                     text: key
                                     width: (parent.width - del.implicitWidth) / 2
                                     anchors.left: parent.left
-                                    placeholderText: "KEY"
+                                    placeholderText: qsTr("KEY")
                                     onEditingFinished: {
                                         envs.model.set(index, {
                                                            "key": text,
@@ -425,7 +425,7 @@ Popup {
                                     text: value
                                     anchors.left: keyField.right
                                     anchors.right: del.left
-                                    placeholderText: "VALUE"
+                                    placeholderText: qsTr("VALUE")
                                     onEditingFinished: {
                                         envs.model.set(index, {
                                                            "key": key,
@@ -495,7 +495,7 @@ Popup {
                         }
                         MButton {
                             text: qsTr("Save As")
-                            enabled: profileName.text.length > 0 && profileName.text !== profile.name
+                            enabled: profile !== null && !profile.nameLocked && profileName.text.length > 0 && profileName.text !== profile.name
                             visible: profile !== null && profileName.enabled
                             onClicked: {
                                 saveProfile(true)
@@ -540,7 +540,7 @@ Popup {
 
     function setProfile(p) {
         profile = p
-        profileName.text = profile.name
+        profileName.text = profile.nameLocked && profile.name === "Default" ? qsTr("Default") : profile.name
         profileName.enabled = !profile.nameLocked
         profileVersion.extraVersionName = null
         profileVersion.update()

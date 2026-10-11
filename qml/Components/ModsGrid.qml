@@ -69,7 +69,7 @@ ScrollView {
 
                         Text {
                             id: descriptionText
-                            text: modelData.description
+                            text: qsTranslate("RemoteMods", modelData.description || "")
                             width: parent.width
                             height: parent.height - titleText.height - 20
                             color: "#bbb"

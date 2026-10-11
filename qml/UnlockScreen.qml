@@ -68,7 +68,7 @@ BaseScreen {
         }
 
         MText {
-            text: "Password"
+            text: qsTr("Password")
             font.bold: true
         }
 

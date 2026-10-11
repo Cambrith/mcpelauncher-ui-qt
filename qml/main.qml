@@ -10,7 +10,7 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Linux Minecraft Launcher")
+    title: qsTranslate("main", "Linux Minecraft Launcher")
     color: "#333333"
     property bool hasUpdate: false
     property bool hasAskedForKey: false
@@ -111,11 +111,11 @@ Window {
         }
 
         onInitError: function (err) {
-            playApiInstance.googleLoginError = qsTr("<b>Cannot initialize Google Play Access</b>, Details:<br/>%1").arg(err)
+            playApiInstance.googleLoginError = qsTranslate("main", "<b>Cannot initialize Google Play Access</b>, Details:<br/>%1").arg(qsTranslate("BackendMessages", String(err)))
         }
 
         onAppInfoFailed: function (app, err) {
-            playApiInstance.googleLoginError = qsTr("<b>Cannot Access App Details</b> (%1), Details:<br/>%2").arg(app).arg(err)
+            playApiInstance.googleLoginError = qsTranslate("main", "<b>Cannot Access App Details</b> (%1), Details:<br/>%2").arg(app).arg(qsTranslate("BackendMessages", String(err)))
         }
     }
 
@@ -150,8 +150,8 @@ Window {
     Component {
         id: panelSafeMode
         ErrorScreen {
-            message: qsTr("UI Crashed :(<br/>Switched to safe mode with limited features<br/>A stack trace might have been written to your console")
-            confirm: qsTr("Continue")
+            message: qsTranslate("main", "UI Crashed :(<br/>Switched to safe mode with limited features<br/>A stack trace might have been written to your console")
+            confirm: qsTranslate("main", "Continue")
             onFinished: {
                 next()
             }
@@ -174,12 +174,12 @@ Window {
 
     MessageDialog {
         id: playDownloadError
-        title: qsTr("Connecting to Google Play failed")
+        title: qsTranslate("main", "Connecting to Google Play failed")
     }
 
     MessageDialog {
         id: errorDialog
-        title: qsTr("Launcher Error")
+        title: qsTranslate("main", "Launcher Error")
     }
 
     TroubleshooterWindow {
@@ -199,8 +199,8 @@ Window {
 
     MessageDialog {
         id: corruptedInstallDialog
-        title: qsTr("Unsupported Minecraft Version")
-        text: qsTr("The Minecraft Version you are trying to run is unsupported.<br/><b>if you wanted to play a new Release please wait patiently for an update,<br/>please choose a compatible version from the profile Editor</b>")
+        title: qsTranslate("main", "Unsupported Minecraft Version")
+        text: qsTranslate("main", "The Minecraft Version you are trying to run is unsupported.<br/><b>if you wanted to play a new Release please wait patiently for an update,<br/>please choose a compatible version from the profile Editor</b>")
     }
 
     GameLauncher {
@@ -210,7 +210,7 @@ Window {
 
         onLaunchFailed: {
             exited()
-            showLaunchError(qsTr("Could not execute the game launcher. Please make sure it's dependencies are properly installed.<br><a href=\"%1\">Click here for more information Linux</a>").arg("https://github.com/minecraft-linux/mcpelauncher-manifest/issues/796"))
+            showLaunchError(qsTranslate("main", "Could not execute the game launcher. Please make sure it's dependencies are properly installed.<br><a href=\"%1\">Click here for more information Linux</a>").arg("https://github.com/minecraft-linux/mcpelauncher-manifest/issues/796"))
         }
         onStateChanged: {
             if (!running) {
@@ -250,8 +250,8 @@ Window {
 
     MessageDialog {
         id: closeRunningDialog
-        title: qsTr("Game is running")
-        text: qsTr("Minecraft is currently running. Would you like to forcibly close it?\nHint: Press ignore to just close the Launcher UI")
+        title: qsTranslate("main", "Game is running")
+        text: qsTranslate("main", "Minecraft is currently running. Would you like to forcibly close it?\nHint: Press ignore to just close the Launcher UI")
         buttons: MessageDialog.Ignore | MessageDialog.Yes | MessageDialog.No
         modality: Qt.ApplicationModal
 
@@ -269,8 +269,8 @@ Window {
 
     MessageDialog {
         id: restartDialog
-        title: qsTr("Please restart")
-        text: qsTr("Update finished, please restart the AppImage")
+        title: qsTranslate("main", "Please restart")
+        text: qsTranslate("main", "Update finished, please restart the AppImage")
     }
 
     UpdateChecker {
@@ -288,7 +288,7 @@ Window {
     Connections {
         target: googleLoginHelperInstance
         function onLoginError(err) {
-            playDownloadError.text = qsTr("The Launcher failed to sign you in\nPlease login again\n%1").arg(err)
+            playDownloadError.text = qsTranslate("main", "The Launcher failed to sign you in\nPlease login again\n%1").arg(qsTranslate("BackendMessages", String(err)))
             playDownloadError.open()
         }
     }

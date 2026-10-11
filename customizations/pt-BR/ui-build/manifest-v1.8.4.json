@@ -1,0 +1,73 @@
+{
+  "source_sha256": "f81e6c22ecf9143ded07b81645658e7f79c0de5e6f1818ea78cf2c1b2a2a32c8",
+  "patched_sha256": "6068a29bb6093cb30dd1da0a81b026eb17f143e6d19a39df642975872c1847b5",
+  "version": "v1.8.4 build 117",
+  "patches": [
+    {
+      "offset": 2658328,
+      "length": 2557,
+      "file": "qml/RequestGoogleCredentials.qml"
+    },
+    {
+      "offset": 2677439,
+      "length": 2607,
+      "file": "qml/main.qml"
+    },
+    {
+      "offset": 2343636,
+      "length": 14,
+      "file": "translation search directory"
+    }
+  ],
+  "external_files": {
+    "minecraft-ui-localization/qml/ApkImportHelper.qml": "ca9a1689e912bf4246821efdb813965dee20a03c63702f5bcde69ce97dd63b01",
+    "minecraft-ui-localization/qml/ApkImportWindow.qml": "ae0e1255c640ab07162946326c95cd66de8e9a21de6ae19125416b87c76855a3",
+    "minecraft-ui-localization/qml/BaseScreen.qml": "33b233b37ce7806e629e307c5b02cc228cae81e39a330f1d90df3b1490286357",
+    "minecraft-ui-localization/qml/ChangelogScreen.qml": "a8f0d472f4ccd701f0c2b74f55883a68543261f433687fee7b3b7aefc8f17e48",
+    "minecraft-ui-localization/qml/Components/AnimatedStackLayout.qml": "c782a59d856576b8b5b7e96dd6532a01b3e7382e57ea45c03c2c56b9ddb0dab0",
+    "minecraft-ui-localization/qml/Components/BaseHeader.qml": "a9853d4903de110d4327b2e3f559d598dffb42480b7c5c89fd4b4dfeace9dd0b",
+    "minecraft-ui-localization/qml/Components/CenteredScrollView.qml": "a0c29020277da31a3a68767652071ccf1187c4a24118715e8259ce4536222327",
+    "minecraft-ui-localization/qml/Components/FocusBorder.qml": "b705a313327b1c6457f750231dc9119f2b8bdaa353a4f273f4e674e1728ca13f",
+    "minecraft-ui-localization/qml/Components/HorizontalDivider.qml": "1df4e85addae548dec05275e92b729b589a4aac404f22cfb5062d9de16819bec",
+    "minecraft-ui-localization/qml/Components/MBusyIndicator.qml": "22cbca71ce9b1a95dc5a3f6efa93840dd91189030095b8b05aab47215c06394c",
+    "minecraft-ui-localization/qml/Components/MButton.qml": "1984b6af4e58db65be55f9e1d041469642de9faa1edab06285d10e6dcbaca89d",
+    "minecraft-ui-localization/qml/Components/MCheckBox.qml": "1d8d8ef94c34f32ad736d9cf09a296280ac03d711159ae123e691a820d086d12",
+    "minecraft-ui-localization/qml/Components/MComboBox.qml": "09c45262370989d6d38905dd70c02771cbdc70b8aefe9d8634e1f77fc7e5ab72",
+    "minecraft-ui-localization/qml/Components/MProgressBar.qml": "f6917d848874d159f16dbe17827dd28e6734f33b9afd32cfe672d0cd25f1e1aa",
+    "minecraft-ui-localization/qml/Components/MSideBarItem.qml": "be488078275c87c15fb9460230bf3e842c0fef258b717ba1948b5e674a483af6",
+    "minecraft-ui-localization/qml/Components/MTabButton.qml": "daa2d1ce549d5b9ecbe89cbf0a256335f22a9d15f0ee80fe651866e44f0ba4be",
+    "minecraft-ui-localization/qml/Components/MText.qml": "12ddb27d7d4b88fa416b73ab72cfc0adbf1ec435d38a094921e424c566e25bb9",
+    "minecraft-ui-localization/qml/Components/MTextField.qml": "963e496d6e322531ef47beec57a9fcc0f51c57163a2bd41bf50a42bdb570f6d7",
+    "minecraft-ui-localization/qml/Components/ModsGrid.qml": "07b9509eba5406254e700ddd31bc22d1c7822d7c742f093ed9589f6071794dd5",
+    "minecraft-ui-localization/qml/Components/NotifyBanner.qml": "56508b4263b9f98ba84b4585425da2a5128c639838eb7c529a0907c71c106b40",
+    "minecraft-ui-localization/qml/Components/PlayButton.qml": "797b04e4b86b10d44ce6b109af906d9c2c9a70065277b9725957b10b1d83b0ba",
+    "minecraft-ui-localization/qml/Components/TransparentButton.qml": "69d8f610249a7d0d7d05fadc0efecf0bca9a71f2f1dcea2c6dc1f3d400cddfd4",
+    "minecraft-ui-localization/qml/ErrorScreen.qml": "ad19080ded0086c69a883f4ac3f97702cb1e4a12e6bd8159de6644b23bc899e1",
+    "minecraft-ui-localization/qml/GameLogScreen.qml": "a4a69f8d9b0de4f319fd0746740bde95165722a958ede2e87052fda6641294a7",
+    "minecraft-ui-localization/qml/GamepadTool.qml": "3f9774d633737fc434b017e7dc9dde716513fd91d89ccd09977f770b79dfe0e8",
+    "minecraft-ui-localization/qml/GoogleTosApprovalWindow.qml": "b46491350b54a9a48fd2ea71f23eda305158fe2a5f51b0464fa9e43201f5e8f9",
+    "minecraft-ui-localization/qml/HomeScreen.qml": "bb692d7c2f6d800d17369af1626dc85ed40ecda2d9b349d5a26786662f4b357f",
+    "minecraft-ui-localization/qml/LoginScreen.qml": "ef745214b709021eb1d21cd112f3ea42de26e502956927b19e54cbe2a7bbd658",
+    "minecraft-ui-localization/qml/MainNavigation.qml": "e196f47941c9fef176015ac01fbc0cc8132ee5530967d1ca265ecf9edb12926c",
+    "minecraft-ui-localization/qml/MainWindow.qml": "3026d36c92cf89238250c227e45f0151365108baa95703f8b76be845fcf10029",
+    "minecraft-ui-localization/qml/ModsScreen.qml": "3bd25c4cc5d7130e4e2ea9dcfec03d1ddf4c0a36833eb1f2e823918b80ecc4a6",
+    "minecraft-ui-localization/qml/NewsScreen.qml": "a62e850f1455429a8375e67d9b0b0d7fea28495ffc1603429a08714af5a0ba66",
+    "minecraft-ui-localization/qml/NewsTranslation.js": "90405249dca8d1612457327b4ed8fe01e5cbc5f6c4a4c689544748c18ac15042",
+    "minecraft-ui-localization/qml/ProfileComboBox.qml": "95c7da655f160aee86e8c418c68a7d6ded8a3d7ca24f026b268dae7c7c649a99",
+    "minecraft-ui-localization/qml/ProfileEditPopup.qml": "977608d41b7b654e31e8c16783ce3fb3e4fd73d00d207c0b863ea74fe452da0f",
+    "minecraft-ui-localization/qml/RequestGoogleCredentials.qml": "cc4d0aa18fba71fa646417d3957c065b3e0f274a823a12feba4fd6c76a3e398e",
+    "minecraft-ui-localization/qml/SettingsAboutSection.qml": "3a24093cf754a0749a04566fd12daf1474b4c5f2c42fb03dc29580fe6664237b",
+    "minecraft-ui-localization/qml/SettingsDevSection.qml": "05eac3159f32d2962d2350e4470eb7e9b45ac200846df656dd49f10014bb134c",
+    "minecraft-ui-localization/qml/SettingsGeneralSection.qml": "1c7c59b031f92bef6191664e5b248f339ac51f5827612238d12e9511ff6ffc3a",
+    "minecraft-ui-localization/qml/SettingsScreen.qml": "d404d840634ccae10db82217079894c6cf019fca8da9e0a883059ae49efb0ba4",
+    "minecraft-ui-localization/qml/SettingsStorageSection.qml": "7286e59a140a04d64f1abcd687cb105a20568f9918a4ac2e87995b1f9b616a1e",
+    "minecraft-ui-localization/qml/SettingsVersionsSection.qml": "33165889566d510a8f5ba3040bf88cf6e912f9b301af123ae0eadd626fc58067",
+    "minecraft-ui-localization/qml/TroubleshooterWindow.qml": "06ebfc13ec9d7ba4d6ee77e5d3c9404edd41650af83718e56fb4ab1e2e3aa9f2",
+    "minecraft-ui-localization/qml/UnlockScreen.qml": "6952bcfcf4ee2e85419cc03b32061122ad2ccaef54c3132a5d1c7211a76d16c1",
+    "minecraft-ui-localization/qml/UnsupportedScreen.qml": "5b3fbde8df773649076d136b1d426772680ec50fdce6e4ebacaa65d1082ccdf2",
+    "i18n/mcpelauncher_pt_BR.qm": "63f174105d4834c2167a590ed81011bfa2e05a56b2e0922369ae5e0d202b0891"
+  },
+  "translation_messages": 405,
+  "mod_descriptions": 12,
+  "news_translation": "public titles and summaries only; MyMemory public API; local SQLite cache"
+}

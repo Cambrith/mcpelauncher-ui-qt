@@ -30,7 +30,7 @@ ColumnLayout {
         Layout.bottomMargin: 10
         font.pointSize: 10
         color: "#fff"
-        text: qsTr("Version: %1<br/>Build: %2").arg(LAUNCHER_VERSION_NAME || "Unknown").arg((LAUNCHER_VERSION_CODE || "Unknown").toString())
+        text: qsTr("Version: %1<br/>Build: %2").arg(LAUNCHER_VERSION_NAME || qsTr("Unknown")).arg((LAUNCHER_VERSION_CODE || qsTr("Unknown")).toString())
     }
 
     Flow {
@@ -97,7 +97,7 @@ ColumnLayout {
 
     MessageDialog {
         id: launcherreset
-        title: "Settings cleared"
+        title: qsTr("Settings cleared")
         text: qsTr("Please reopen the Launcher to see the changes")
     }
 
@@ -109,7 +109,7 @@ ColumnLayout {
         enabled: false
         function onUpdateError(error) {
             updateCheckerConnectorSettings.enabled = false
-            updateError.text = error
+            updateError.text = qsTranslate("BackendMessages", String(error))
             updateError.open()
         }
         function onUpdateAvailable(url) {

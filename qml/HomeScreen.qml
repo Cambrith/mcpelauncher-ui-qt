@@ -178,7 +178,7 @@ BaseScreen {
                             return qsTr("One Joystick cannot be used as Gamepad Input:\n%1.").arg(ret.join(", "))
                         return qsTr("%1 Joysticks cannot be used as Gamepad Input:\n%2.").arg(ret.length).arg(ret.join(", "))
                     }
-                    actionText: "Configure"
+                    actionText: qsTr("Configure")
                     visible: GamepadManager.gamepads.some(gamepad => !gamepad.hasMapping) && launcherSettings.showNotifications
                     onClicked: gamepadTool.show()
                 }
@@ -344,7 +344,7 @@ BaseScreen {
                                                     var match = opts[j].match(/-DLAUNCHER_VERSION_NAME=([^\s]+)/)
                                                     if (match && LAUNCHER_VERSION_NAME !== match[1]) {
                                                         banner.title = qsTr("Update available")
-                                                        banner.description = "Available " + match[1] + " installed " + LAUNCHER_VERSION_NAME
+                                                        banner.description = qsTr("Available %1; installed %2").arg(match[1]).arg(LAUNCHER_VERSION_NAME)
                                                         banner.visible = true
                                                         return
                                                     }
@@ -597,7 +597,7 @@ BaseScreen {
             if (playDownloadError.visible) {
                 playDownloadError.text += "\n" + err
             } else {
-                playDownloadError.text = err
+                playDownloadError.text = qsTranslate("BackendMessages", String(err))
                 playDownloadError.open()
             }
         }
@@ -622,7 +622,7 @@ BaseScreen {
         }
         allowIncompatible: launcherSettings.showUnsupported
         onError: function (err) {
-            playDownloadError.text = qsTr("Error while extracting the downloaded file(s), <a href=\"https://github.com/minecraft-linux/mcpelauncher-ui-manifest/issues\">please report this error</a>: %1").arg(err)
+            playDownloadError.text = qsTr("Error while extracting the downloaded file(s), <a href=\"https://github.com/minecraft-linux/mcpelauncher-ui-manifest/issues\">please report this error</a>: %1").arg(qsTranslate("BackendMessages", String(err)))
             playDownloadError.open()
         }
         onFinished: launchGame()
@@ -636,7 +636,7 @@ BaseScreen {
 
     MessageDialog {
         id: updateError
-        title: "Update Error"
+        title: qsTr("Update Error")
     }
 
     Connections {
@@ -645,7 +645,7 @@ BaseScreen {
         enabled: false
         function onUpdateError(error) {
             updateCheckerConnectorBase.enabled = false
-            updateError.text = error
+            updateError.text = qsTranslate("BackendMessages", String(error))
             updateError.open()
         }
         function onProgress() {
@@ -684,7 +684,7 @@ BaseScreen {
 
     function launcherLatestVersionBase() {
         return launcherLatestVersion() ?? {
-            "versionName": "Invalid",
+            "versionName": qsTr("Invalid"),
             "versionCode": 0
         }
     }
@@ -765,12 +765,12 @@ BaseScreen {
     function getDisplayedVersionName() {
         const profile = profileManager.activeProfile
         if (profile.versionType === ProfileInfo.LATEST_GOOGLE_PLAY)
-            return getDisplayedNameForCode(launcherLatestVersionscode()) || ("Unknown (" + launcherLatestVersionscode() + ")")
+            return getDisplayedNameForCode(launcherLatestVersionscode()) || qsTr("Unknown (%1)").arg(launcherLatestVersionscode())
         if (profile.versionType === ProfileInfo.LOCKED_CODE)
-            return getDisplayedNameForCode(profile.versionCode) || ((profile.versionDirName ? profile.versionDirName : "Unknown") + " (" + profile.versionCode + ")")
+            return getDisplayedNameForCode(profile.versionCode) || ((profile.versionDirName ? profile.versionDirName : qsTr("Unknown")) + " (" + profile.versionCode + ")")
         if (profile.versionType === ProfileInfo.LOCKED_NAME)
-            return profile.versionDirName || "Unknown Version"
-        return "Unknown"
+            return profile.versionDirName || qsTr("Unknown Version")
+        return qsTr("Unknown")
     }
 
     function getDownloadVersionCode() {
@@ -883,7 +883,7 @@ BaseScreen {
         const profile = profileManager.activeProfile
 
         if (gameLauncher.running) {
-            showLaunchError("The game is already running.")
+            showLaunchError(qsTr("The game is already running."))
             return
         }
 
@@ -892,7 +892,7 @@ BaseScreen {
         const gameDir = getCurrentGameDir(profile)
         console.log("Game dir = " + gameDir)
         if (gameDir === null || gameDir.length <= 0) {
-            showLaunchError("Could not find the game directory.")
+            showLaunchError(qsTr("Could not find the game directory."))
             return
         }
         gameLauncher.gameDir = gameDir
