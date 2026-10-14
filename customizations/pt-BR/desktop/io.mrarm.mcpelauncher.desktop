@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Name=Launcher de Minecraft Bedrock
+Name[pt_BR]=Launcher de Minecraft Bedrock
+GenericName=Inicializador e Gerenciador do Minecraft
+GenericName[pt_BR]=Inicializador e Gerenciador do Minecraft
+Comment=Baixe, atualize e execute diferentes versões do Minecraft Bedrock Edition com configurações customizadas
+Comment[pt_BR]=Baixe, atualize e execute diferentes versões do Minecraft Bedrock Edition com configurações customizadas
+Exec="@BINDIR@/minecraft-launcher-localized" %U
+Icon=@ICON_LAUNCHER@
+Categories=Game;
+StartupWMClass=io.mrarm.mcpelauncher-ui-qt
+Terminal=false
+StartupNotify=true
+X-Flatpak=io.mrarm.mcpelauncher

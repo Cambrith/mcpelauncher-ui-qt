@@ -1,55 +1,76 @@
-#!/usr/bin/python3
-"""Run the installed Flatpak with a version-checked local UI resource copy."""
+#!/usr/bin/env python3
+"""Abre o Flatpak io.mrarm.mcpelauncher usando, quando válidas, as cópias traduzidas locais.
+
+Cada personalização é validada por SHA-256 contra o binário original instalado.
+Se algo não bater (por exemplo, após uma atualização do Flatpak), usa o original.
+"""
 import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 
-app_id = 'io.mrarm.mcpelauncher'
-base = Path.home()/'.var/app'/app_id/'data/minecraft-ui-localization'
-patched = base/'bin/mcpelauncher-ui-qt'
+APP_ID = 'io.mrarm.mcpelauncher'
+DATA = Path.home() / '.var/app' / APP_ID / 'data'
+FLATPAK = shutil.which('flatpak') or '/usr/bin/flatpak'
+
+
+def sha256(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def notify(message):
+    print('Minecraft: ' + message, file=sys.stderr)
+    if shutil.which('notify-send'):
+        subprocess.run(['notify-send', 'Minecraft', message], check=False)
+
+
+def valid(base, binary, location):
+    """True se manifest.json de `base` corresponde ao original e à cópia de `binary`."""
+    manifest = json.loads((base / 'manifest.json').read_text())
+    return (sha256(Path(location) / 'files/bin' / binary) == manifest['source_sha256']
+            and sha256(base / 'bin' / binary) == manifest['patched_sha256']
+            and all(sha256(base.parent / rel) == expected
+                    for rel, expected in manifest.get('external_files', {}).items()))
+
+
+try:
+    location = subprocess.check_output([FLATPAK, 'info', '--show-location', APP_ID],
+                                       text=True, stderr=subprocess.DEVNULL).strip()
+except (OSError, subprocess.SubprocessError):
+    notify('Flatpak io.mrarm.mcpelauncher não encontrado.')
+    sys.exit(1)
+
+# Interface do launcher (opcional: só existe se uma cópia local foi preparada).
 command = 'mcpelauncher-ui-qt'
-try:
-    manifest = json.loads((base/'manifest.json').read_text())
-    location = subprocess.check_output(['/usr/bin/flatpak', 'info', '--show-location', app_id], text=True).strip()
-    original = Path(location)/'files/bin/mcpelauncher-ui-qt'
-    if (hashlib.sha256(original.read_bytes()).hexdigest() == manifest['source_sha256']
-        and hashlib.sha256(patched.read_bytes()).hexdigest() == manifest['patched_sha256']
-        and all(hashlib.sha256((base.parent/relative).read_bytes()).hexdigest() == expected
-                for relative, expected in manifest.get('external_files', {}).items())):
-        command = str(patched)
-    else:
-        subprocess.run(['/usr/bin/notify-send', 'Minecraft',
-            'A versão do launcher mudou. A interface original será usada até revisar a personalização dos textos.'], check=False)
-except (OSError, ValueError, KeyError, subprocess.SubprocessError):
-    subprocess.run(['/usr/bin/notify-send', 'Minecraft',
-        'A personalização local dos textos está indisponível. Abrindo o launcher original.'], check=False)
+ui_base = DATA / 'minecraft-ui-localization'
+if (ui_base / 'manifest.json').exists():
+    try:
+        if valid(ui_base, 'mcpelauncher-ui-qt', location):
+            command = '/var/data/minecraft-ui-localization/bin/mcpelauncher-ui-qt'
+        else:
+            notify('A versão do launcher mudou. A interface original será usada.')
+    except (OSError, ValueError, KeyError):
+        notify('A personalização local da interface está indisponível. Abrindo o launcher original.')
 
-# Independently validate the native game menu copy; keep launcher localization separate.
+# Menus nativos do jogo (gerados pelo install.sh a partir do binário do próprio usuário).
 game_options = []
-game_base = base.parent/'minecraft-game-menu-localization'
-try:
-    game_manifest = json.loads((game_base/'manifest.json').read_text())
-    game_original = Path(location)/'files/bin/mcpelauncher-client'
-    game_patched = game_base/'bin/mcpelauncher-client'
-    if (hashlib.sha256(game_original.read_bytes()).hexdigest() == game_manifest['source_sha256']
-        and hashlib.sha256(game_patched.read_bytes()).hexdigest() == game_manifest['patched_sha256']
-        and all(hashlib.sha256((game_base.parent/relative).read_bytes()).hexdigest() == expected
-                for relative, expected in game_manifest.get('external_files', {}).items())):
-        game_options = ['--env=PATH=/var/data/minecraft-game-menu-localization/bin:/app/bin:/usr/bin']
-    else:
-        subprocess.run(['/usr/bin/notify-send', 'Minecraft',
-            'O cliente do jogo mudou. Os menus originais serão usados até revisar a tradução local.'], check=False)
-except (OSError, ValueError, KeyError, NameError):
-    subprocess.run(['/usr/bin/notify-send', 'Minecraft',
-        'A tradução local dos menus do jogo está indisponível. Usando o cliente original.'], check=False)
+game_base = DATA / 'minecraft-game-menu-localization'
+if (game_base / 'manifest.json').exists():
+    try:
+        if valid(game_base, 'mcpelauncher-client', location):
+            game_options = ['--env=PATH=/var/data/minecraft-game-menu-localization/bin:/app/bin:/usr/bin']
+        else:
+            notify('O cliente do jogo mudou. Os menus originais (em inglês) serão usados.')
+    except (OSError, ValueError, KeyError):
+        notify('A tradução local dos menus do jogo está indisponível. Usando o cliente original.')
 
-# Do not let the terminal's temporary locale overrides mask the existing Flatpak LANG setting.
+# Não deixe sobreposições temporárias de locale do terminal mascararem o LANG do Flatpak.
 environment = os.environ.copy()
 environment.pop('LC_ALL', None)
 environment.pop('LC_CTYPE', None)
-args = ['/usr/bin/flatpak', 'run', '--branch=stable', '--arch=x86_64',
-        '--command='+command, *game_options, '--file-forwarding', app_id, '@@u', *sys.argv[1:], '@@']
-os.execve('/usr/bin/flatpak', args, environment)
+args = [FLATPAK, 'run', '--command=' + command, *game_options,
+        '--file-forwarding', APP_ID, '@@u', *sys.argv[1:], '@@']
+os.execve(FLATPAK, args, environment)

@@ -1,0 +1,150 @@
+{
+  "ApkImportHelper": {
+    "Invalid file URL": "URL de arquivo inválida",
+    "Apk extraction": "Extração do APK"
+  },
+  "ErrorScreen": {
+    "<b><font color=\"#f66\">Not logged in</font></b>": "<b><font color=\"#f66\">Sessão não iniciada</font></b>",
+    "Authorize the mod to access your Google Credentials": "Autorize o mod a acessar suas credenciais do Google"
+  },
+  "GamepadTool": {
+    "True": "Sim",
+    "False": "Não"
+  },
+  "GoogleTosApprovalWindow": {
+    "By using this application you agree to the Google Play Terms of Service.": "Ao usar este aplicativo, você concorda com os Termos de Serviço do Google Play.",
+    "I agree to receive Marketing E-Mails": "Concordo em receber e-mails de marketing",
+    "Google Play ToS approval": "Aceitação dos Termos de Serviço do Google Play",
+    "Agree": "Concordar",
+    "Disagree": "Discordar"
+  },
+  "HomeScreen": {
+    "Unknown (%1)": "Desconhecido (%1)",
+    "Unknown Version": "Versão desconhecida",
+    "ChromeOS Mode not supported": "Modo ChromeOS não compatível",
+    "Your Google Play account doesn’t have the required license for ChromeOS Mode. If you don’t own a Chromebook, FydeOS may offer a one‑time option to purchase this license. Note that ChromeOS builds currently have Vibrant Visuals permanently disabled.": "Sua conta do Google Play não tem a licença necessária para o modo ChromeOS. Se você não tem um Chromebook, o FydeOS pode oferecer uma opção de compra única dessa licença. As versões para ChromeOS atualmente mantêm o recurso Vibrant Visuals permanentemente desativado.",
+    "Configure": "Configurar",
+    "DRM Update Available": "Atualização de DRM disponível",
+    "To support additional versions up to %1.": "Para oferecer suporte a versões adicionais até %1.",
+    "Available %1; installed %2": "Disponível: %1; instalada: %2",
+    "Update Error": "Erro de atualização",
+    " (ChromeOS)": " (ChromeOS)",
+    " (Android)": " (Android)",
+    "The game is already running.": "O jogo já está em execução.",
+    "Could not find the game directory.": "Não foi possível encontrar a pasta do jogo."
+  },
+  "ModsScreen": {
+    "Homepage": "Página do projeto",
+    "ModManager.saveMod Failed": "Falha ao salvar o mod",
+    "Could not save mod %1 with version %2 and arch %3": "Não foi possível salvar o mod %1, versão %2, para a arquitetura %3"
+  },
+  "ProfileEditPopup": {
+    "Auto": "Automático",
+    "Enable": "Ativar",
+    "Disable": "Desativar",
+    "ANGLE backend": "Motor gráfico ANGLE",
+    "Default": "Padrão",
+    "KEY": "CHAVE",
+    "VALUE": "VALOR"
+  },
+  "QObject": {
+    "Failed to save mod %1 version %2 for arch %3": "Falha ao salvar o mod %1, versão %2, para a arquitetura %3",
+    "creating directory %1 failed": "Falha ao criar a pasta %1",
+    "copying file from %1 to %2 failed": "Falha ao copiar o arquivo de %1 para %2"
+  },
+  "RequestGoogleCredentials": {
+    "Request Google Credentials": "Solicitação de credenciais do Google",
+    "A mod at '%1'<br/>is requesting access to your google credentials,<br/>to reject this request close this window": "Um mod em '%1'<br/>está solicitando acesso às suas credenciais do Google.<br/>Para recusar a solicitação, feche esta janela."
+  },
+  "SettingsAboutSection": {
+    "Settings cleared": "Configurações redefinidas",
+    "Launcher": "Lançador"
+  },
+  "SettingsGeneralSection": {
+    "Launcher": "Lançador"
+  },
+  "SettingsStorageSection": {
+    "Please pick the Minecraft file": "Selecione o arquivo do Minecraft",
+    "All files (*)": "Todos os arquivos (*)",
+    "Data Root": "Pasta principal dos dados",
+    "Worlds": "Mundos",
+    "Resource Packs": "Pacotes de recursos",
+    "Behaviour Packs": "Pacotes de comportamento",
+    "Game Data": "Dados do jogo",
+    "Versions": "Versões"
+  },
+  "SettingsVersionsSection": {
+    "You’re most likely mistaken here — to download and install different versions, open the launcher’s Home page and click the Profile Edit pencil icon.": "Para baixar e instalar outras versões, abra a página inicial do lançador e clique no ícone de lápis para editar o perfil.",
+    "Architecture": "Arquitetura",
+    "Self": "Próprio",
+    "All": "Todos",
+    "ChromeOS": "ChromeOS"
+  },
+  "UnlockScreen": {
+    "Password": "Senha"
+  },
+  "main": {
+    "UI Crashed :(<br/>Switched to safe mode with limited features<br/>A stack trace might have been written to your console": "A interface parou de funcionar :(<br/>O modo de segurança foi ativado, com recursos limitados.<br/>Um registro da falha pode ter sido gravado no console.",
+    "Request Google Play Services credentials": "Solicitar credenciais dos Serviços do Google Play",
+    "The mod requesting Google Play Services credentials": "O mod que solicita credenciais dos Serviços do Google Play"
+  },
+  "GamepadLabels": {
+    "leftshoulder": "Ombro esq.",
+    "rightshoulder": "Ombro dir.",
+    "righttrigger": "Gatilho dir.",
+    "lefttrigger": "Gatilho esq.",
+    "back": "Voltar",
+    "start": "Iniciar",
+    "leftstick": "Analógico esq.",
+    "rightstick": "Analógico dir.",
+    "guide": "Guia",
+    "dpleft": "Direcional esq.",
+    "dpdown": "Direcional baixo",
+    "dpright": "Direcional dir.",
+    "dpup": "Direcional cima",
+    "leftx": "Eixo X esq.",
+    "lefty": "Eixo Y esq.",
+    "rightx": "Eixo X dir.",
+    "righty": "Eixo Y dir."
+  },
+  "RemoteNews": {
+    "Pre-order Minecraft for Nintendo Switch™ 2 today!": "Garanta hoje o Minecraft para Nintendo Switch™ 2 na pré-venda!",
+    "Plus more information about the digital upgrade path": "E mais informações sobre a atualização digital",
+    "Marketplace Content: October 2026": "Conteúdo do Marketplace: outubro de 2026",
+    "Civilizations, Bosses Rise, and so much more!": "Civilizations, Bosses Rise e muito mais!",
+    "Minecraft 26.4 Snapshot 3": "Minecraft 26.4 — versão de testes 3",
+    "A Minecraft Java Snapshot": "Uma versão de testes do Minecraft Java",
+    "The music of Minecraft Dungeons II": "A música de Minecraft Dungeons II",
+    "A guide to writing songs for sequels, singers, and entire dimensions!": "Um guia para compor músicas para continuações, cantores e dimensões inteiras!",
+    "Everything you can test from the upcoming game drop": "Tudo o que você pode testar da próxima atualização do jogo",
+    "Your one-stop shop for the upcoming drop's beta, preview, and snapshots! ": "Encontre as versões beta, de prévia e de testes da próxima atualização em um só lugar!",
+    "Minecraft Preview 26.60.29": "Minecraft — prévia 26.60.29",
+    "A Minecraft: Bedrock Edition Preview Changelog": "Notas de atualização de uma prévia do Minecraft: Bedrock Edition",
+    "Better together in Dungeons II": "Juntos é melhor em Dungeons II",
+    "Discover mixed couch co-op, crossplay, and other ways to team up!": "Descubra a combinação de cooperação local e online, o jogo entre plataformas e outras formas de jogar em equipe!",
+    "Minecraft 26.4 Snapshot 2": "Minecraft 26.4 — versão de testes 2",
+    "Minecraft Dungeons II Capes & Promos": "Capas e promoções de Minecraft Dungeons II",
+    "How and when you can get all the dashing items available in Minecraft Dungeons II!": "Saiba como e quando obter todos os itens estilosos disponíveis em Minecraft Dungeons II!",
+    "Minecraft Dungeons II is live": "Minecraft Dungeons II já está disponível",
+    "Time to brave the unknown and save the day!": "É hora de enfrentar o desconhecido e salvar o dia!"
+  },
+  "NewsLocalization": {
+    "Translating...": "Traduzindo...",
+    "Translation unavailable": "Tradução indisponível",
+    "Unable to load news. Try again.": "Não foi possível carregar as notícias. Tente novamente."
+  },
+  "RemoteMods": {
+    "A mod for mcpelauncher to allow 1.21.124, 1.21.130 to run, better integration in future 1.6.x": "Um mod para o mcpelauncher que permite executar as versões 1.21.124 e 1.21.130, com melhor integração prevista para a versão 1.6.x.",
+    "Includes parts of removed code from the codebase back as an external mod, works for Minecraft below 1.16.20": "Reincorpora partes de código removidas do projeto como um mod externo. Funciona com versões do Minecraft anteriores à 1.16.20.",
+    "Mod that blocks double clicking so you don't get banned from servers like zeqa.": "Bloqueia cliques duplos para evitar banimentos em servidores como o Zeqa.",
+    "A mod for mcpelauncher amd64 that increases brightness.": "Um mod para o mcpelauncher na arquitetura amd64 que aumenta o brilho.",
+    "A mod for mcpelauncher that adds zoom.": "Um mod para o mcpelauncher que adiciona zoom.",
+    "A mod for mcpelauncher that adds snaplook (quickly hold a key to switch to third person front POV).": "Adiciona o recurso snaplook: mantenha uma tecla pressionada para mudar rapidamente para a visão frontal em terceira pessoa.",
+    "Basic \"No Hurt Cam\" mod for mcpelauncher": "Um mod básico para impedir que a câmera balance ao receber dano.",
+    "A mod for mcpelauncher that allows you to sprint while strafing on Intel CPUs.": "Permite correr enquanto você se move lateralmente em computadores com processadores Intel.",
+    "A mod for mcpelauncher that provided early access to an fps hud that is now accessible by the menubar.\nExplore the source code if you want to render overlays above the game": "Ofereceu acesso antecipado ao indicador de FPS, que agora está disponível pela barra de menus.\nConsulte o código-fonte se quiser desenhar sobreposições por cima do jogo.",
+    "A mod for Minecraft Bedrock that allows you to change the build height limit (min and max).": "Permite alterar os limites mínimo e máximo de altura de construção no Minecraft Bedrock.",
+    "Allows changing selected gamerules without enabling cheats or disabling achievements.": "Permite alterar determinadas regras do jogo sem ativar trapaças nem desativar conquistas.",
+    "A Shulker Box Preview Mod": "Um mod para visualizar o conteúdo de caixas de shulker."
+  }
+}

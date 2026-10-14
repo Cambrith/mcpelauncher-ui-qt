@@ -28,6 +28,6 @@ Os recursos antigos compactados em `resources/` são registros da personalizaç�
 
 Feche o lançador e execute o script abaixo para voltar à tradução existente antes desta ampliação. A versão retirada é preservada junto ao backup. O cache de textos públicos pode permanecer; ele não contém dados de conta. Não se restaura configuração do jogo nem arquivos de perfil.
 
-/home/cambrith/.local/state/minecraft-bedrock-kde/complete-pt-br-20261008/reverter-traducao.py
+~/.local/state/minecraft-bedrock-kde/complete-pt-br-20261008/reverter-traducao.py
 
-Backup: /home/cambrith/.local/state/minecraft-bedrock-kde/backups/complete-pt-br-20261008-090723
+Backup: ~/.local/state/minecraft-bedrock-kde/backups/complete-pt-br-20261008-090723

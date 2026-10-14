@@ -1,8 +1,31 @@
+#!/usr/bin/env python3
+"""Gera uma cópia traduzida (pt-BR) dos menus nativos do mcpelauncher-client.
+
+Uso: build.py --source /caminho/files/bin/mcpelauncher-client --outdir DIR
+Nada é alterado no Flatpak: o binário original só é lido. Sai com código 3 se o
+binário não for exatamente a versão suportada (SUPPORTED_SHA256).
+"""
 from pathlib import Path
-import json,re,struct,subprocess,hashlib,os
-W=Path(__file__).parent
-source=Path('/var/lib/flatpak/app/io.mrarm.mcpelauncher/current/active/files/bin/mcpelauncher-client')
-assert hashlib.sha256(source.read_bytes()).hexdigest() == '448af80b3f785c50336e93967b58dbf55c05c6958518aa20dbf09724c5a8dc5a', 'Unsupported client version'
+import argparse,json,re,shutil,struct,subprocess,hashlib,sys
+SUPPORTED_SHA256='448af80b3f785c50336e93967b58dbf55c05c6958518aa20dbf09724c5a8dc5a'
+def default_source():
+ try:loc=subprocess.check_output(['flatpak','info','--show-location','io.mrarm.mcpelauncher'],text=True,stderr=subprocess.DEVNULL).strip()
+ except (OSError,subprocess.SubprocessError):return None
+ return Path(loc)/'files/bin/mcpelauncher-client'
+ap=argparse.ArgumentParser(description=__doc__.splitlines()[0])
+ap.add_argument('--source',type=Path,default=None,help='mcpelauncher-client original (padrão: o do Flatpak instalado)')
+ap.add_argument('--outdir',type=Path,default=Path(__file__).resolve().parent/'build',help='diretório de saída (padrão: ./build)')
+ap.add_argument('--check-only',action='store_true',help='apenas verifica se a versão é suportada')
+opts=ap.parse_args()
+source=opts.source or default_source()
+if source is None or not source.is_file():sys.exit('Erro: mcpelauncher-client não encontrado. Instale o Flatpak io.mrarm.mcpelauncher ou use --source.')
+actual=hashlib.sha256(source.read_bytes()).hexdigest()
+if actual!=SUPPORTED_SHA256:
+ print(f'Versão não suportada do cliente (sha256 {actual}).\nEsperado: {SUPPORTED_SHA256}\nO jogo continuará com os menus originais em inglês.',file=sys.stderr);sys.exit(3)
+if opts.check_only:print('Versão suportada.');sys.exit(0)
+missing=[t for t in ('gcc','ld','objcopy','objdump','nm') if not shutil.which(t)]
+if missing:sys.exit('Erro: ferramentas ausentes: '+', '.join(missing)+' (instale gcc e binutils).')
+W=opts.outdir.resolve();W.mkdir(parents=True,exist_ok=True)
 translations={
 'File':'Arquivo','Mods':'Modificações','View':'Exibir','Video':'Vídeo','Help':'Ajuda','Hide Menubar':'Ocultar barra de menus','Use Alt to Focus Menubar':'Usar Alt para selecionar a barra de menus','Close':'Fechar',
 'Enable Keyboard AutoFocus Patches for 1.20.60+':'Ativar correções de foco automático do teclado para 1.20.60+',
@@ -45,7 +68,7 @@ c=c.replace('\\u0000','\\000')
 ranges=[(0x360530,0x36390f),(0x363a70,0x363b5c)]
 functions={0x24f320:0,0x2eef10:0,0x2d63d0:0,0x2ef580:0,0x2410b0:0,0x2d1d80:1,0x2d21b0:1,0x2d3560:0,0x2d49e0:0,0x2e1380:0,0x230e80:2,0x230910:2,0x252f60:0,0x253aa0:0,0x2e17b0:3,0x2dbbf0:0,0x2dd160:0}
 # discover SliderFloat callee precisely at known call site from source switch.
-dis=subprocess.check_output(['objdump','-d','-M','intel',str(source)],text=True)
+dis=subprocess.check_output(['objdump','-d','-M','intel',str(source)],text=True,env={'LC_ALL':'C','PATH':__import__('os').environ.get('PATH','/usr/bin:/bin')})
 m=re.search(r'^\s*3634bc:.*call\s+([0-9a-f]+)',dis,re.M);assert m;functions[int(m[1],16)]=0
 sites=[]
 for m in re.finditer(r'^\s*([0-9a-f]+):\s+e8 ((?:[0-9a-f]{2} ){3}[0-9a-f]{2})\s+call\s+([0-9a-f]+)',dis,re.M):
@@ -65,7 +88,6 @@ for target,mode in functions.items():
  asm+=f' add $200,%rsp\n jmp original_{special.get(target,(target,mode))[0]:x}\n'
 asm+='.section .note.GNU-stack,"",@progbits\n'
 (W/'wrappers.S').write_text(asm)
-assert hashlib.sha256(source.read_bytes()).hexdigest() == '448af80b3f785c50336e93967b58dbf55c05c6958518aa20dbf09724c5a8dc5a', 'Unsupported client version'
 b=bytearray(source.read_bytes());phoff=struct.unpack_from('<Q',b,32)[0];n=struct.unpack_from('<H',b,56)[0];ph=[list(struct.unpack_from('<IIQQQQQQ',b,phoff+56*i)) for i in range(n)]
 align=lambda x:(x+4095)&~4095
 base=align(max(p[3]+p[6] for p in ph if p[0]==1));offset=align(len(b));headsize=56*(n+2);codebase=base+align(headsize)

@@ -1,0 +1,44 @@
+# Exemplo de ajustes de jogabilidade do mcpelauncher-client (Minecraft Bedrock no Linux).
+#
+# Arquivo real (Flatpak):
+#   ~/.var/app/io.mrarm.mcpelauncher/data/mcpelauncher/mcpelauncher-client-settings.txt
+# O install.sh remove os comentários ao copiar; o cliente reescreve o arquivo ao fechar o jogo.
+# O install.sh SÓ copia este exemplo com --com-ajustes, e sempre faz backup do arquivo existente.
+# Também é possível alterar tudo pelo menu do jogo (barra de menus superior).
+#
+# Formato: chave=valor, uma por linha.
+
+# Barra de menus superior do cliente (Arquivo, Exibir, Vídeo...). true = visível.
+enable_menubar=true
+# Tecla para focar a barra de menus (vazio = padrão).
+menubarFocusKey=
+# Interface ImGui do launcher: auto, true ou false.
+enable_imgui=auto
+# Escala da interface do menu do cliente.
+scale=1.000000
+
+# Vídeo
+# Sincronização vertical: reduz "tearing"; desligue para FPS ilimitado.
+vsync=true
+# Inicia em tela cheia.
+fullscreen=false
+# Modo de vídeo em tela cheia: "LARGURAxALTURA @ HZ * 1". Vazio = resolução atual do monitor.
+# (linha comentada = o cliente escolhe a resolução)
+# videoMode=1366x768 @ 60.00 * 1
+
+# Indicadores (HUD)
+# Contador de FPS: 0 = não exibir, 1 = sempre, 2 = durante o jogo.
+enable_fps_hud=0
+fps_hud_x=0.000000
+fps_hud_y=0.000000
+# Exibição de teclas e cliques do mouse: 0 = não exibir, 1 = sempre, 2 = durante o jogo.
+enable_keystroke_hud=0
+keystroke_hud_x=0.000000
+keystroke_hud_y=0.000000
+
+# Correções
+# Corrida lateral (sprint strafe) em CPUs Intel; exige reiniciar o jogo.
+enable_intel_sprint_strafe_patch=false
+# Correções de foco automático do teclado para versões 1.20.60+.
+enable_keyboard_autofocus_patches_1_20_60=false
+enable_keyboard_autofocus_paste_patches_1_20_60=false
