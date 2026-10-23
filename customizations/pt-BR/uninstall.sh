@@ -26,6 +26,9 @@ if (( restore )) && [[ -d "$STATE/backups" ]]; then
   done
 fi
 rm -f -- "$LIST"
+rm -rf -- "$HOME/.var/app/io.mrarm.mcpelauncher/data/minecraft-ui-localization" 2>/dev/null || true
+rm -f -- "$HOME/.var/app/io.mrarm.mcpelauncher/data/i18n/mcpelauncher_pt_BR.qm" 2>/dev/null || true
+find "$HOME/.var/app/io.mrarm.mcpelauncher/data/i18n" -type d -empty -delete 2>/dev/null || true
 find "$HOME/.var/app/io.mrarm.mcpelauncher/data/minecraft-game-menu-localization" -type d -empty -delete 2>/dev/null || true
 if command -v update-desktop-database >/dev/null; then update-desktop-database -q "$DATA_HOME/applications" || true; fi
 echo "Removido. Backups mantidos em $STATE/backups."

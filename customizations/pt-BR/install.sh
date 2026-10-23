@@ -15,12 +15,13 @@ SETTINGS="$APP_DATA/mcpelauncher/mcpelauncher-client-settings.txt"
 BACKUP="$STATE/backups/$(date +%Y%m%d-%H%M%S)"
 LIST="$STATE/installed.txt"
 
-icons=1 game=1 settings=0 dry=0
+icons=1 game=1 ui=1 settings=0 dry=0
 usage() {
   cat <<USO
 Uso: $0 [opções]
   --sem-icones     não instala os ícones personalizados (usa o ícone original)
   --sem-menus-jogo não gera a tradução dos menus nativos do jogo
+  --sem-ui         não gera a tradução da interface do lançador
   --com-ajustes    copia gameplay/mcpelauncher-client-settings.exemplo.txt para as
                    configurações do cliente (o arquivo atual vai para o backup)
   --simular        mostra o que seria feito, sem alterar nada
@@ -31,6 +32,7 @@ for arg in "$@"; do
   case "$arg" in
     --sem-icones) icons=0 ;;
     --sem-menus-jogo) game=0 ;;
+    --sem-ui) ui=0 ;;
     --com-ajustes) settings=1 ;;
     --simular) dry=1 ;;
     -h|--help) usage; exit 0 ;;
@@ -113,6 +115,23 @@ if (( game )); then
     put "$TMP/game/manifest.json" "$GAME_DIR/manifest.json" 0644
   else
     say '  Falha ao gerar a cópia traduzida (gcc/binutils instalados?). Os menus ficarão em inglês.' >&2
+  fi
+fi
+
+if (( ui )); then
+  say '== Tradução da interface do lançador'
+  rc=0
+  python3 "$HERE/ui-build/build.py" --source "$LOCATION/files/bin/mcpelauncher-ui-qt" --check-only || rc=$?
+  if (( rc == 3 )); then
+    say '  Esta versão do lançador não é suportada: a interface ficará no idioma padrão.'
+  elif (( rc != 0 )); then
+    say '  Não foi possível verificar a interface do lançador; pulando.' >&2
+  elif (( dry )); then
+    say "[simulação] build.py geraria $APP_DATA/minecraft-ui-localization"
+  elif python3 "$HERE/ui-build/build.py" --source "$LOCATION/files/bin/mcpelauncher-ui-qt"; then
+    say '  Tradução da interface configurada com sucesso.'
+  else
+    say '  Falha ao gerar tradução da interface.' >&2
   fi
 fi
 
