@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Minecraft Bedrock Launcher
+Name[pt_BR]=Launcher de Minecraft Bedrock
+Exec="@BINDIR@/minecraft-launcher-localized" %U
+Icon=@ICON_LAUNCHER@
+Categories=Game;
+StartupWMClass=io.mrarm.mcpelauncher-ui-qt
+Terminal=false
+NoDisplay=true
+X-Flatpak=io.mrarm.mcpelauncher

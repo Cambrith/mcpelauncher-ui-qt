@@ -3,11 +3,16 @@
 
 Uso: build.py --source /caminho/files/bin/mcpelauncher-client --outdir DIR
 Nada é alterado no Flatpak: o binário original só é lido. Sai com código 3 se o
-binário não for exatamente a versão suportada (SUPPORTED_SHA256).
+binário não for exatamente uma das versões suportadas (SUPPORTED).
 """
 from pathlib import Path
 import argparse,json,re,shutil,struct,subprocess,hashlib,sys
-SUPPORTED_SHA256='448af80b3f785c50336e93967b58dbf55c05c6958518aa20dbf09724c5a8dc5a'
+# sha256 do original -> (deslocamento dos endereços do código em relação à versão de referência, versão).
+# Em v1.8.5 o código do menu é idêntico ao anterior, apenas deslocado em 0x1030 bytes.
+SUPPORTED={
+ '448af80b3f785c50336e93967b58dbf55c05c6958518aa20dbf09724c5a8dc5a':(0,'cliente 78904982c13d'),
+ '691a498cd4826a7bdeeacdb5015ab01dd960284297ecd0d8ee4bd03103e105e4':(0x1030,'v1.8.5'),
+}
 def default_source():
  try:loc=subprocess.check_output(['flatpak','info','--show-location','io.mrarm.mcpelauncher'],text=True,stderr=subprocess.DEVNULL).strip()
  except (OSError,subprocess.SubprocessError):return None
@@ -20,8 +25,9 @@ opts=ap.parse_args()
 source=opts.source or default_source()
 if source is None or not source.is_file():sys.exit('Erro: mcpelauncher-client não encontrado. Instale o Flatpak io.mrarm.mcpelauncher ou use --source.')
 actual=hashlib.sha256(source.read_bytes()).hexdigest()
-if actual!=SUPPORTED_SHA256:
- print(f'Versão não suportada do cliente (sha256 {actual}).\nEsperado: {SUPPORTED_SHA256}\nO jogo continuará com os menus originais em inglês.',file=sys.stderr);sys.exit(3)
+if actual not in SUPPORTED:
+ print(f'Versão não suportada do cliente (sha256 {actual}).\nEsperado: {", ".join(SUPPORTED)}\nO jogo continuará com os menus originais em inglês.',file=sys.stderr);sys.exit(3)
+SHIFT,VERSION=SUPPORTED[actual]
 if opts.check_only:print('Versão suportada.');sys.exit(0)
 missing=[t for t in ('gcc','ld','objcopy','objdump','nm') if not shutil.which(t)]
 if missing:sys.exit('Erro: ferramentas ausentes: '+', '.join(missing)+' (instale gcc e binutils).')
@@ -65,18 +71,18 @@ __attribute__((visibility("hidden"))) void translate_args(U*r,int mode){const ch
 c=c.replace('\\u0000','\\000')
 (W/'translate.c').write_text(c)
 # exact native renderer and its recursive module menu function; no game or ImGui internals.
-ranges=[(0x360530,0x36390f),(0x363a70,0x363b5c)]
-functions={0x24f320:0,0x2eef10:0,0x2d63d0:0,0x2ef580:0,0x2410b0:0,0x2d1d80:1,0x2d21b0:1,0x2d3560:0,0x2d49e0:0,0x2e1380:0,0x230e80:2,0x230910:2,0x252f60:0,0x253aa0:0,0x2e17b0:3,0x2dbbf0:0,0x2dd160:0}
+ranges=[(0x360530+SHIFT,0x36390f+SHIFT),(0x363a70+SHIFT,0x363b5c+SHIFT)]
+functions={k+SHIFT:v for k,v in {0x24f320:0,0x2eef10:0,0x2d63d0:0,0x2ef580:0,0x2410b0:0,0x2d1d80:1,0x2d21b0:1,0x2d3560:0,0x2d49e0:0,0x2e1380:0,0x230e80:2,0x230910:2,0x252f60:0,0x253aa0:0,0x2e17b0:3,0x2dbbf0:0,0x2dd160:0}.items()}
 # discover SliderFloat callee precisely at known call site from source switch.
 dis=subprocess.check_output(['objdump','-d','-M','intel',str(source)],text=True,env={'LC_ALL':'C','PATH':__import__('os').environ.get('PATH','/usr/bin:/bin')})
-m=re.search(r'^\s*3634bc:.*call\s+([0-9a-f]+)',dis,re.M);assert m;functions[int(m[1],16)]=0
+m=re.search(rf'^\s*{0x3634bc+SHIFT:x}:.*call\s+([0-9a-f]+)',dis,re.M);assert m;functions[int(m[1],16)]=0
 sites=[]
 for m in re.finditer(r'^\s*([0-9a-f]+):\s+e8 ((?:[0-9a-f]{2} ){3}[0-9a-f]{2})\s+call\s+([0-9a-f]+)',dis,re.M):
  address,target=int(m[1],16),int(m[3],16)
  if any(a<=address<b for a,b in ranges) and target in functions:sites.append((address,target))
 assert len(sites)>45,len(sites)
 asm='.text\n'
-special={0x3633bc:(0x2410b0,5),0x36345e:(0x2d3560,4)}
+special={0x3633bc+SHIFT:(0x2410b0+SHIFT,5),0x36345e+SHIFT:(0x2d3560+SHIFT,4)}
 for special_id,(target,mode) in special.items(): functions[special_id]=mode
 for target,mode in functions.items():
  asm+=f'.global wrap_{target:x}\nwrap_{target:x}:\n sub $200,%rsp\n'
@@ -116,5 +122,5 @@ for address,target in sites:
  assert address+5+struct.unpack_from('<i',b,address+1)[0]==target
  struct.pack_into('<i',b,address+1,symbols[f'wrap_{address if address in special else target:x}']-address-5)
 (W/'mcpelauncher-client').write_bytes(b);(W/'mcpelauncher-client').chmod(0o755)
-manifest={'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'patched_sha256':hashlib.sha256(b).hexdigest(),'source_client_commit':'78904982c13d7bcec7af4b572b18cac83d930d31','translations':len(translations),'ui_call_sites':[{'address':hex(a),'original':hex(t),'wrapper':hex(symbols[f'wrap_{a if a in special else t:x}'])} for a,t in sites],'protected_ranges':[[hex(a),hex(z)] for a,z in ranges]}
+manifest={'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'patched_sha256':hashlib.sha256(b).hexdigest(),'source_client_commit':VERSION,'translations':len(translations),'ui_call_sites':[{'address':hex(a),'original':hex(t),'wrapper':hex(symbols[f'wrap_{a if a in special else t:x}'])} for a,t in sites],'protected_ranges':[[hex(a),hex(z)] for a,z in ranges]}
 (W/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');print('Built',len(sites),'UI call redirects;',len(translations),'exact translations; helper',len(helper),'bytes')

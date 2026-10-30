@@ -7,7 +7,12 @@ e gera a cópia com redirecionamento de recursos e manifest.json correspondente.
 from pathlib import Path
 import argparse, ctypes, ctypes.util, hashlib, json, shutil, struct, subprocess, sys
 
-SUPPORTED_SHA256 = 'f81e6c22ecf9143ded07b81645658e7f79c0de5e6f1818ea78cf2c1b2a2a32c8'
+# Hash do original -> versão. Os recursos QML embutidos são localizados por conteúdo,
+# então builds com os mesmos arquivos QML em outros offsets funcionam sem alterar o código.
+SUPPORTED = {
+    'f81e6c22ecf9143ded07b81645658e7f79c0de5e6f1818ea78cf2c1b2a2a32c8': 'v1.8.4 build 117',
+    'd7f9872048c089249ced5b18af573ba21314218293e2fdff52ec8eb842e4a875': 'v1.8.5',
+}
 APP_ID = 'io.mrarm.mcpelauncher'
 
 def default_source():
@@ -30,9 +35,9 @@ def main():
 
     stock = source.read_bytes()
     stock_sha = hashlib.sha256(stock).hexdigest()
-    if stock_sha != SUPPORTED_SHA256:
+    if stock_sha not in SUPPORTED:
         print(f'Versão não suportada da interface (sha256 {stock_sha}).\n'
-              f'Esperado: {SUPPORTED_SHA256}', file=sys.stderr)
+              f'Esperado: {", ".join(SUPPORTED)}', file=sys.stderr)
         sys.exit(3)
 
     if opts.check_only:
@@ -76,24 +81,51 @@ def main():
 
     patches = []
 
+    # Localiza os recursos QML embutidos (qrc): [tamanho BE de 4 bytes][dados].
+    def find_plain(marker):
+        hits = []
+        pos = 0
+        while (i := stock.find(b'import QtQuick', pos)) >= 0:
+            pos = i + 1
+            n = struct.unpack('>I', stock[i-4:i])[0]
+            if 0 < n < 100000 and marker in stock[i:i+n]:
+                hits.append((i, n))
+        assert len(hits) == 1, f'recurso {marker!r} não encontrado de forma única'
+        return hits[0]
+
+    def find_zstd(marker):
+        zstd.ZSTD_decompress.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_void_p, ctypes.c_size_t]
+        zstd.ZSTD_decompress.restype = ctypes.c_size_t
+        hits = []
+        pos = 0
+        while (i := stock.find(b'\x28\xb5\x2f\xfd', pos)) >= 0:
+            pos = i + 1
+            n = struct.unpack('>I', stock[i-4:i])[0]
+            if not 0 < n < 100000:
+                continue
+            out = ctypes.create_string_buffer(300000)
+            r = zstd.ZSTD_decompress(out, len(out), stock[i:i+n], n)
+            if not zstd.ZSTD_isError(r) and marker in out.raw[:r]:
+                hits.append((i, n))
+        assert len(hits) == 1, f'recurso {marker!r} não encontrado de forma única'
+        return hits[0]
+
     # Patch RequestGoogleCredentials
     payload1 = b'import QtQuick\nimport "file:/var/data/minecraft-ui-localization/qml" as Local\nLocal.RequestGoogleCredentials {}\n'
-    off1 = 2658328 + 4
-    alloc1 = 2557 - 4
-    assert struct.unpack('>I', stock[off1-4:off1])[0] == alloc1
+    off1, alloc1 = find_plain(b'qsTr("Request Google Credentials")')
+    assert len(payload1) <= alloc1
     binary[off1-4:off1] = struct.pack('>I', len(payload1))
     binary[off1:off1+alloc1] = payload1 + bytes(alloc1 - len(payload1))
     patches.append({'offset': off1 - 4, 'length': alloc1 + 4, 'file': 'qml/RequestGoogleCredentials.qml'})
 
     # Patch main.qml
     payload2 = b'import QtQuick\nimport "file:/var/data/minecraft-ui-localization/qml" as Local\nLocal.MainWindow {}\n'
-    off2 = 2677439 + 4
-    alloc2 = 2607 - 4
-    assert struct.unpack('>I', stock[off2-4:off2])[0] == alloc2
+    off2, alloc2 = find_zstd(b'qsTr("Linux Minecraft Launcher")')
     out = ctypes.create_string_buffer(zstd.ZSTD_compressBound(len(payload2)))
     n = zstd.ZSTD_compress(out, len(out), payload2, len(payload2), 13)
     assert not zstd.ZSTD_isError(n)
     comp2 = out.raw[:n]
+    assert len(comp2) <= alloc2
     binary[off2-4:off2] = struct.pack('>I', len(comp2))
     binary[off2:off2+alloc2] = comp2 + bytes(alloc2 - len(comp2))
     patches.append({'offset': off2 - 4, 'length': alloc2 + 4, 'file': 'qml/main.qml'})
@@ -121,7 +153,7 @@ def main():
     manifest = {
         'source_sha256': stock_sha,
         'patched_sha256': hashlib.sha256(binary).hexdigest(),
-        'version': 'v1.8.4 build 117',
+        'version': SUPPORTED[stock_sha],
         'patches': patches,
         'external_files': external,
         'translation_messages': 3441,
